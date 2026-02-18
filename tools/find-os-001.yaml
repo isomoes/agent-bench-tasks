@@ -3,7 +3,7 @@ title: "Find system OS version"
 category: tools
 difficulty: easy
 source:
-  repository: https://github.com/jiahaoxiang2000/agent-bench.git
+  repository: https://github.com/isomoes/agent-bench-tasks.git
   commit: "main"
 prompt: |
   Use system tools to find the operating system version and save the result.
@@ -20,13 +20,13 @@ prompt: |
   Use tools like uname, lsb_release, /etc/os-release, or platform-specific commands.
 verification:
   type: python
-  command: "python tests/verify_os_version.py"
+  command: "python3 verify/find-os-001.py"
   timeout: 30
 permissions:
-  mode: "dontAsk"  # Auto-approve all permissions
-  write: true      # Allow Write and Edit tools
-  bash: true       # Allow Bash tool
-  read: true       # Allow Read, Glob, Grep tools
+  mode: "dontAsk" # Auto-approve all permissions
+  write: true # Allow Write and Edit tools
+  bash: true # Allow Bash tool
+  read: true # Allow Read, Glob, Grep tools
   web_fetch: false # Disallow WebFetch and WebSearch tools
 metadata:
   tags:
