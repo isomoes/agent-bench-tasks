@@ -3,7 +3,7 @@ title: "Aggregate a CSV file and output JSON"
 category: coding
 difficulty: medium
 prompt: |
-  There is a CSV file at CODING/003/data/sales.csv in the workspace. It has
+  There is a CSV file at data/sales.csv in the workspace. It has
   the following columns:
 
     date,product,quantity,price
@@ -11,7 +11,7 @@ prompt: |
   Each row represents one sale. The price column is the unit price (float).
 
   Your task:
-  1. Read CODING/003/data/sales.csv
+  1. Read data/sales.csv
   2. For each unique product, calculate:
      - total_quantity: sum of all quantity values
      - total_revenue: sum of (quantity × price) for all rows, rounded to 2

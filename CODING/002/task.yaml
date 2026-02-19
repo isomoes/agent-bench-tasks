@@ -3,7 +3,7 @@ title: "Parse a log file and extract error counts"
 category: coding
 difficulty: medium
 prompt: |
-  There is a server log file at CODING/002/data/server.log in the workspace.
+  There is a server log file at data/server.log in the workspace.
   Each line has the format:
 
     [LEVEL] YYYY-MM-DD HH:MM:SS message text
@@ -11,7 +11,7 @@ prompt: |
   Where LEVEL is one of: INFO, WARN, ERROR
 
   Your task:
-  1. Read CODING/002/data/server.log
+  1. Read data/server.log
   2. Count the number of lines for each log level (INFO, WARN, ERROR)
   3. Write the counts to results/log_summary.txt in this exact format:
 

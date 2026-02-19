@@ -6,7 +6,7 @@ prompt: |
   This task requires chaining multiple tools together in sequence.
 
   Step 1 — Read the config file:
-    Read TOOLS/003/data/settings.json. It contains a JSON object with a key
+    Read data/settings.json. It contains a JSON object with a key
     "target_dir" whose value is a directory path relative to the workspace root.
 
   Step 2 — Inspect the target directory:
@@ -28,7 +28,7 @@ prompt: |
     Files must be listed in alphabetical order by filename.
 
   Example results/report.txt:
-      target_dir: TOOLS/003/data/input
+      target_dir: data/input
       files:
         alpha.txt: 12 lines
         beta.txt: 7 lines

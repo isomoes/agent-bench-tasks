@@ -3,7 +3,7 @@ title: "Fix a broken temperature converter"
 category: coding
 difficulty: easy
 prompt: |
-  There is a Python script at CODING/001/data/temperature.py that is supposed
+  There is a Python script at data/temperature.py that is supposed
   to convert a list of Celsius temperatures to Fahrenheit and write the results
   to a file, but it contains bugs that produce wrong output.
 
@@ -20,7 +20,7 @@ prompt: |
     71.6
 
   Your task:
-  1. Read CODING/001/data/temperature.py and identify all bugs
+  1. Read data/temperature.py and identify all bugs
   2. Fix the script so it produces the correct output
   3. Run the fixed script to generate results/temperatures.txt
 verification:

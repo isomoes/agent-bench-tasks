@@ -21,8 +21,7 @@ prompt: |
      scripts/hello.py: 142 bytes
      utils/helper.py: 87 bytes
 
-  Do not include directories, only files. Do not include files under the
-  CODING/, TOOLS/, or WRITING/ task infrastructure directories.
+  Do not include directories, only files.
 verification:
   timeout: 30
 permissions:
