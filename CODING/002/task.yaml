@@ -1,0 +1,36 @@
+id: CODING-002
+title: "Parse a log file and extract error counts"
+category: coding
+difficulty: medium
+prompt: |
+  There is a server log file at CODING/002/data/server.log in the workspace.
+  Each line has the format:
+
+    [LEVEL] YYYY-MM-DD HH:MM:SS message text
+
+  Where LEVEL is one of: INFO, WARN, ERROR
+
+  Your task:
+  1. Read CODING/002/data/server.log
+  2. Count the number of lines for each log level (INFO, WARN, ERROR)
+  3. Write the counts to results/log_summary.txt in this exact format:
+
+    INFO: <count>
+    WARN: <count>
+    ERROR: <count>
+
+  The counts must be in that order. Do not include any other lines.
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: true
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - python
+    - file-reading
+    - text-processing
+    - intermediate

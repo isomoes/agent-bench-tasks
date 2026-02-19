@@ -1,0 +1,39 @@
+id: TOOLS-001
+title: "Find all Python files and report their sizes"
+category: tools
+difficulty: easy
+prompt: |
+  The workspace contains a directory tree with various files. Your task is to
+  find every Python file (.py extension) anywhere in the workspace and report
+  each file's path and size.
+
+  Your task:
+  1. Search the entire workspace recursively for files ending in .py
+  2. For each file found, record its path (relative to the workspace root)
+     and its size in bytes
+  3. Sort the results by file path alphabetically
+  4. Write the results to results/py_files.txt, one file per line in this
+     exact format:
+
+     <relative-path>: <size> bytes
+
+  Example:
+     scripts/hello.py: 142 bytes
+     utils/helper.py: 87 bytes
+
+  Do not include directories, only files. Do not include files under the
+  CODING/, TOOLS/, or WRITING/ task infrastructure directories.
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: true
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - file-search
+    - glob
+    - tools
+    - beginner

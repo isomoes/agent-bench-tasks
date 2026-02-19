@@ -1,0 +1,12 @@
+TODO list
+
+[ ] Write unit tests for the authentication module
+[ ] Fix the pagination bug on the products page
+[x] Deploy hotfix to production
+[ ] Update API documentation
+[x] Code review for PR #47
+
+Backlog:
+- Refactor the legacy payment processor
+- Add dark mode support
+- Improve search performance

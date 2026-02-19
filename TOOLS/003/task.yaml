@@ -1,0 +1,49 @@
+id: TOOLS-003
+title: "Read config, run command, write combined report"
+category: tools
+difficulty: medium
+prompt: |
+  This task requires chaining multiple tools together in sequence.
+
+  Step 1 — Read the config file:
+    Read TOOLS/003/data/settings.json. It contains a JSON object with a key
+    "target_dir" whose value is a directory path relative to the workspace root.
+
+  Step 2 — Inspect the target directory:
+    Use bash to list all files (not directories) directly inside that directory
+    (non-recursive). Capture the filenames only (not full paths).
+
+  Step 3 — Count lines in each file:
+    For each file found in Step 2, use bash or file-reading tools to count the
+    number of non-empty lines in that file.
+
+  Step 4 — Write the report:
+    Write results/report.txt with the following format:
+      target_dir: <value from config>
+      files:
+        <filename>: <non-empty line count> lines
+        <filename>: <non-empty line count> lines
+        ...
+
+    Files must be listed in alphabetical order by filename.
+
+  Example results/report.txt:
+      target_dir: TOOLS/003/data/input
+      files:
+        alpha.txt: 12 lines
+        beta.txt: 7 lines
+verification:
+  timeout: 45
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: true
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - multi-step
+    - tool-chaining
+    - json
+    - bash
+    - intermediate

@@ -1,0 +1,40 @@
+id: WRITING-003
+title: "Write a 5-point pros/cons list"
+category: writing
+difficulty: medium
+prompt: |
+  Write a balanced pros and cons list about remote work and save it to a file.
+
+  Your task:
+  1. Write exactly 5 pros (advantages) of remote work
+  2. Write exactly 5 cons (disadvantages) of remote work
+  3. Each point must be a concise sentence (10–30 words)
+  4. Write the result to: results/pros_cons.txt
+
+  Required format (use these exact section headers):
+    Pros:
+    - <point 1>
+    - <point 2>
+    - <point 3>
+    - <point 4>
+    - <point 5>
+
+    Cons:
+    - <point 1>
+    - <point 2>
+    - <point 3>
+    - <point 4>
+    - <point 5>
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: false
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - writing
+    - structured
+    - intermediate

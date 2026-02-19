@@ -1,0 +1,39 @@
+id: CODING-001
+title: "Fix a broken temperature converter"
+category: coding
+difficulty: easy
+prompt: |
+  There is a Python script at CODING/001/data/temperature.py that is supposed
+  to convert a list of Celsius temperatures to Fahrenheit and write the results
+  to a file, but it contains bugs that produce wrong output.
+
+  The conversion formula is: F = (C × 9/5) + 32
+
+  Input temperatures (Celsius): 0, 100, -40, 37, 22
+
+  Expected output in results/temperatures.txt (one value per line, rounded to
+  1 decimal place):
+    32.0
+    212.0
+    -40.0
+    98.6
+    71.6
+
+  Your task:
+  1. Read CODING/001/data/temperature.py and identify all bugs
+  2. Fix the script so it produces the correct output
+  3. Run the fixed script to generate results/temperatures.txt
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: true
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - python
+    - bug-fix
+    - debugging
+    - beginner

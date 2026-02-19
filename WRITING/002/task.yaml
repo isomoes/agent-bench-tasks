@@ -1,0 +1,35 @@
+id: WRITING-002
+title: "Summarize a paragraph in one sentence"
+category: writing
+difficulty: easy
+prompt: |
+  Read the paragraph below and write a one-sentence summary that captures the
+  main idea. Save the summary to a file.
+
+  Paragraph:
+    "Artificial intelligence has rapidly transformed many industries over the past
+    decade. From healthcare, where AI assists in diagnosing diseases with greater
+    accuracy than ever before, to transportation, where self-driving vehicles are
+    becoming a reality, the technology is reshaping how humans live and work.
+    Despite its promise, AI also raises important ethical questions around privacy,
+    bias, and the future of employment that society must address thoughtfully."
+
+  Your task:
+  1. Write a single sentence (under 50 words) that summarizes the paragraph above
+  2. The sentence must mention both the benefits and the challenges/concerns of AI
+  3. Write the sentence to: results/summary.txt
+
+  The output file should contain exactly one sentence ending with a period.
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: false
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - writing
+    - summarization
+    - beginner

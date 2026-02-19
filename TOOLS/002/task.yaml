@@ -1,0 +1,30 @@
+id: TOOLS-002
+title: "Fetch a webpage and extract the page title"
+category: tools
+difficulty: easy
+prompt: |
+  Use web fetch tools to retrieve a webpage and extract its HTML <title> tag
+  content.
+
+  Target URL: https://example.com
+
+  Your task:
+  1. Fetch the page at https://example.com
+  2. Extract the text content of the <title> element (strip whitespace)
+  3. Write the title text to: results/page_title.txt
+
+  The output file should contain exactly one line with the page title.
+verification:
+  timeout: 60
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: true
+  read: true
+  web_fetch: true
+metadata:
+  tags:
+    - web-fetch
+    - html
+    - tools
+    - beginner

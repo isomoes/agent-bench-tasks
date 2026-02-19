@@ -1,84 +1,137 @@
 # AGENTS.md — Agent Bench Tasks
 
-This repository contains benchmark task definitions (YAML) and verification scripts (Python).
+This repository is cloned as the agent's workspace for every benchmark run.
+Each task is fully self-contained in its own directory.
 
 ```
-tasks/
-├── tools/          # Task YAML files (e.g. find-os-001.yaml)
-├── verify/         # Verification scripts (e.g. find-os-001.py)
-└── results/        # Output directory written by agents during task execution
+<repo-root>/                    ← workspace root (cwd for agent and verifier)
+├── CODING/
+│   ├── 001/
+│   │   ├── task.yaml           # Task definition (id, prompt, verification, …)
+│   │   ├── verify.py           # Verification script
+│   │   └── data/
+│   │       └── temperature.py  # Fixture: broken script for the agent to fix
+│   ├── 002/
+│   │   ├── task.yaml
+│   │   ├── verify.py
+│   │   └── data/
+│   │       └── server.log      # Fixture: log file for the agent to parse
+│   └── 003/
+│       ├── task.yaml
+│       ├── verify.py
+│       └── data/
+│           └── sales.csv       # Fixture: CSV for the agent to aggregate
+├── TOOLS/
+│   ├── 001/
+│   │   ├── task.yaml
+│   │   └── verify.py           # No fixture data needed
+│   ├── 002/
+│   │   ├── task.yaml
+│   │   └── verify.py           # No fixture data needed
+│   └── 003/
+│       ├── task.yaml
+│       ├── verify.py
+│       └── data/
+│           ├── settings.json   # Fixture: config file read by the agent
+│           └── input/          # Fixture: directory of text files to inspect
+│               ├── changelog.txt
+│               ├── notes.txt
+│               └── tasks.txt
+├── WRITING/
+│   ├── 001/  task.yaml + verify.py
+│   ├── 002/  task.yaml + verify.py
+│   └── 003/  task.yaml + verify.py
+└── results/                    # Output directory written by agents at runtime
 ```
 
 ---
 
-## Task YAML Format
+## Task directory convention
 
-Place task files in `tools/<task-id>.yaml`. The `id` field must match the filename stem.
+Every task lives in `<CATEGORY>/<NNN>/` and contains exactly:
+
+| File | Required | Purpose |
+|------|----------|---------|
+| `task.yaml` | yes | Task definition loaded by the benchmark runner |
+| `verify.py` | yes | Verification script run after the agent finishes |
+| `data/` | when needed | Fixture files the agent reads as input |
+
+**All paths** in `task.yaml` prompts and in `verify.py` are relative to the
+workspace root (the repo root), not to the task subdirectory.
+
+---
+
+## Task YAML format
 
 ```yaml
-id: CATEGORY-NNN              # Unique task ID (e.g. TOOLS-001, BUG-042)
+id: CODING-001                  # Uppercase, matches directory (CODING/001)
 title: "Short human-readable title"
-category: tools               # bug-fix | feature | refactor | tools
-difficulty: easy              # easy | medium | hard
+category: bug-fix               # bug-fix | feature | refactor | tools
+difficulty: easy                # easy | medium | hard
 
 source:
   repository: https://github.com/org/repo.git
-  commit: "main"              # branch name or full commit SHA
+  commit: "main"                # branch name or full commit SHA
 
 prompt: |
-  Detailed instructions for the agent.
-  Multi-line. Markdown is fine.
+  Instructions for the agent.
+  Reference fixture files as <CATEGORY>/<NNN>/data/<filename>.
+  Reference output files as results/<filename>.
 
 verification:
-  type: python                # python | pytest | bash
-  command: "python3 verify/CATEGORY-NNN.py"
-  timeout: 30                 # seconds (default: 60)
+  type: python
+  command: "python3 <CATEGORY>/<NNN>/verify.py"
+  timeout: 30                   # seconds (default: 60)
 
 permissions:
-  mode: "dontAsk"             # dontAsk | bypassPermissions | default
-  write: true                 # Allow Write/Edit tools
-  bash: true                  # Allow Bash tool
-  read: true                  # Allow Read/Glob/Grep tools
-  web_fetch: false            # Allow WebFetch/WebSearch tools
+  mode: "dontAsk"               # dontAsk | bypassPermissions | default
+  write: true
+  bash: true
+  read: true
+  web_fetch: false
 
 metadata:
   tags:
-    - python
-    - system-info
+    - example-tag
 ```
 
-### Field Reference
+### Field reference
 
 | Field | Required | Values |
 |-------|----------|--------|
-| `id` | yes | `CATEGORY-NNN` — uppercase, matches filename |
+| `id` | yes | `CATEGORY-NNN` — uppercase, matches directory name |
 | `category` | yes | `bug-fix`, `feature`, `refactor`, `tools` |
 | `difficulty` | yes | `easy`, `medium`, `hard` |
 | `source.commit` | yes | branch name or full SHA |
+| `verification.command` | yes | `python3 <CATEGORY>/<NNN>/verify.py` |
 | `verification.timeout` | no | seconds, default `60` |
 | `permissions.mode` | no | `dontAsk` auto-approves all prompts |
 | `max_iterations` | no | positive integer, caps agent loop |
 
 ---
 
-## Verification Script Conventions
+## Verification script conventions
 
-Place scripts in `verify/<task-id>.py`. The script runs with the task workspace as the
-working directory, so all paths are relative to the workspace root.
+`verify.py` runs with the **workspace root** as `cwd`, so all paths are
+relative to the repo root.
 
 ### Rules
 
 - Shebang: `#!/usr/bin/env python3`
 - Print `PASS: <description>` on success, `FAIL: <reason>` on failure
 - Exit `0` on pass, `1` on fail
-- Read agent output from `results/<filename>` (relative to workspace root)
+- Read agent output from `results/<filename>`
+- Read fixture data from `<CATEGORY>/<NNN>/data/<filename>`
 - Standard library only — no third-party dependencies
 
 ### Template
 
 ```python
 #!/usr/bin/env python3
-"""Verification script for <task-id>."""
+"""Verification script for <CATEGORY>-<NNN>: <title>.
+
+Fixture: <CATEGORY>/<NNN>/data/<filename>   (omit if no fixture)
+"""
 import os
 import sys
 
@@ -91,7 +144,6 @@ def verify() -> bool:
         return False
 
     content = open(output_file).read().strip()
-
     if not content:
         print(f"FAIL: '{output_file}' is empty")
         return False
@@ -105,55 +157,31 @@ if __name__ == "__main__":
     sys.exit(0 if verify() else 1)
 ```
 
-### Validation Tips
+### Validation tips
 
 - Always check file existence before reading
 - Strip whitespace before comparing strings (`content.strip()`)
-- Use `.lower()` for case-insensitive keyword checks
-- Provide specific failure messages that explain what was wrong and what was expected
-- Avoid hardcoding platform-specific values; use `platform` or `os` to detect the environment
-
-### Example — OS version check
-
-```python
-#!/usr/bin/env python3
-"""Verify OS version was written correctly."""
-import os
-import sys
-import platform
-
-
-def verify() -> bool:
-    output_file = "results/os_version.txt"
-
-    if not os.path.exists(output_file):
-        print(f"FAIL: '{output_file}' does not exist")
-        return False
-
-    content = open(output_file).read().strip()
-    if not content:
-        print(f"FAIL: '{output_file}' is empty")
-        return False
-
-    os_keywords = ["linux", "macos", "darwin", "windows"]
-    if not any(kw in content.lower() for kw in os_keywords):
-        print(f"FAIL: '{content}' does not look like an OS version string")
-        return False
-
-    print(f"PASS: OS version correctly detected: {content}")
-    return True
-
-
-if __name__ == "__main__":
-    sys.exit(0 if verify() else 1)
-```
+- Derive expected values from fixture files dynamically — do not hardcode them
+- Provide specific failure messages explaining what was wrong and what was expected
 
 ---
 
-## Running a Verification Script Directly
+## Adding a new task
+
+1. Choose the next available number in the category: `CODING/004/`, `TOOLS/004/`, etc.
+2. Create `task.yaml` and `verify.py` inside that directory.
+3. If the task needs input data, add it under `<CATEGORY>/<NNN>/data/`.
+4. Reference all paths from the workspace root in both files.
+5. Update the fixture table in this file.
+
+---
+
+## Running a verification script directly
 
 ```bash
-python3 verify/find-os-001.py
+# Run from the workspace root
+python3 CODING/001/verify.py
+python3 TOOLS/003/verify.py
 ```
 
 Scripts exit `0` on PASS and `1` on FAIL.

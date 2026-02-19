@@ -1,0 +1,12 @@
+v1.2.0 - 2024-02-01
+- Added support for bulk imports
+- Fixed memory leak in the session manager
+- Improved error messages for invalid inputs
+
+v1.1.0 - 2024-01-15
+- New dashboard with real-time metrics
+- API rate limiting now configurable per user
+
+v1.0.1 - 2024-01-03
+- Patched SQL injection vulnerability in search endpoint
+- Updated dependencies to latest stable versions

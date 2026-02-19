@@ -1,0 +1,35 @@
+id: WRITING-001
+title: "Write a haiku about technology"
+category: writing
+difficulty: easy
+prompt: |
+  Write an original haiku about technology and save it to a file.
+
+  A haiku has exactly three lines with the following syllable pattern:
+    - Line 1: 5 syllables
+    - Line 2: 7 syllables
+    - Line 3: 5 syllables
+
+  Your task:
+  1. Compose an original haiku on the theme of technology (computers, AI,
+     the internet, software, etc.)
+  2. Write the three lines to: results/haiku.txt
+
+  Example (do NOT copy this):
+    Silicon dreams wake  (5)
+    Circuits hum through endless night  (7)
+    Code becomes the dawn  (5)
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: false
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - writing
+    - creative
+    - poetry
+    - beginner

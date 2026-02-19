@@ -1,0 +1,44 @@
+id: CODING-003
+title: "Aggregate a CSV file and output JSON"
+category: coding
+difficulty: medium
+prompt: |
+  There is a CSV file at CODING/003/data/sales.csv in the workspace. It has
+  the following columns:
+
+    date,product,quantity,price
+
+  Each row represents one sale. The price column is the unit price (float).
+
+  Your task:
+  1. Read CODING/003/data/sales.csv
+  2. For each unique product, calculate:
+     - total_quantity: sum of all quantity values
+     - total_revenue: sum of (quantity × price) for all rows, rounded to 2
+       decimal places
+  3. Write the result to results/sales_summary.json as a JSON object where
+     each key is a product name and the value is an object with
+     total_quantity and total_revenue.
+
+  Example output shape (values will differ):
+    {
+      "Widget": {"total_quantity": 42, "total_revenue": 209.58},
+      "Gadget": {"total_quantity": 17, "total_revenue": 84.83}
+    }
+
+  Keys must be sorted alphabetically. Use 2-space indentation.
+verification:
+  timeout: 30
+permissions:
+  mode: "dontAsk"
+  write: true
+  bash: true
+  read: true
+  web_fetch: false
+metadata:
+  tags:
+    - python
+    - csv
+    - json
+    - data-processing
+    - intermediate
