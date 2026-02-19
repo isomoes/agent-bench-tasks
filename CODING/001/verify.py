@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verification script for CODING-001: Fix a broken temperature converter.
 
-Fixture: CODING/001/data/temperature.py
+Fixture: data/temperature.py
 """
 import os
 import sys

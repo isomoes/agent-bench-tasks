@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Verification script for TOOLS-003: Read config, run command, write combined report.
 
-Fixture: TOOLS/003/data/settings.json
-         TOOLS/003/data/input/
+Fixture: data/settings.json
+         data/input/
 """
 import json
 import os
@@ -16,11 +16,11 @@ def count_nonempty_lines(filepath: str) -> int:
 
 
 def verify() -> bool:
-    config_file = "TOOLS/003/data/settings.json"
+    config_file = "data/settings.json"
     output_file = "results/report.txt"
 
     if not os.path.exists(config_file):
-        print(f"FAIL: Config file '{config_file}' does not exist in workspace")
+        print(f"FAIL: Config file '{config_file}' does not exist")
         return False
 
     try:
@@ -35,7 +35,7 @@ def verify() -> bool:
         return False
 
     if not os.path.isdir(target_dir):
-        print(f"FAIL: target_dir '{target_dir}' does not exist in workspace")
+        print(f"FAIL: target_dir '{target_dir}' does not exist")
         return False
 
     # Compute expected values

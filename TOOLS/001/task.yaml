@@ -4,12 +4,12 @@ category: tools
 difficulty: easy
 prompt: |
   The workspace contains a directory tree with various files. Your task is to
-  find every Python file (.py extension) anywhere in the workspace and report
+  find every Python file (.py extension) anywhere in this task directory and report
   each file's path and size.
 
   Your task:
-  1. Search the entire workspace recursively for files ending in .py
-  2. For each file found, record its path (relative to the workspace root)
+  1. Search this task directory recursively for files ending in .py
+  2. For each file found, record its path (relative to this task directory)
      and its size in bytes
   3. Sort the results by file path alphabetically
   4. Write the results to results/py_files.txt, one file per line in this

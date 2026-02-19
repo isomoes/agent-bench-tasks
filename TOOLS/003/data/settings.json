@@ -1,5 +1,5 @@
 {
-  "target_dir": "TOOLS/003/data/input",
+  "target_dir": "data/input",
   "app_name": "agent-bench-demo",
   "version": "1.0.0"
 }

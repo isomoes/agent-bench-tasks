@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verification script for CODING-002: Parse a log file and extract error counts.
 
-Fixture: CODING/002/data/server.log
+Fixture: data/server.log
 """
 import os
 import re
@@ -24,10 +24,10 @@ def count_log_levels(log_file: str) -> dict:
 
 def verify() -> bool:
     output_file = "results/log_summary.txt"
-    source_log = "CODING/002/data/server.log"
+    source_log = "data/server.log"
 
     if not os.path.exists(source_log):
-        print(f"FAIL: Source log '{source_log}' does not exist in workspace")
+        print(f"FAIL: Source log '{source_log}' does not exist")
         return False
 
     if not os.path.exists(output_file):

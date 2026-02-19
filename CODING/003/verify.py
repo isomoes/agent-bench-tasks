@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verification script for CODING-003: Aggregate a CSV file and output JSON.
 
-Fixture: CODING/003/data/sales.csv
+Fixture: data/sales.csv
 """
 import csv
 import json
@@ -31,10 +31,10 @@ def compute_expected(csv_file: str) -> dict:
 
 def verify() -> bool:
     output_file = "results/sales_summary.json"
-    source_csv = "CODING/003/data/sales.csv"
+    source_csv = "data/sales.csv"
 
     if not os.path.exists(source_csv):
-        print(f"FAIL: Source CSV '{source_csv}' does not exist in workspace")
+        print(f"FAIL: Source CSV '{source_csv}' does not exist")
         return False
 
     if not os.path.exists(output_file):

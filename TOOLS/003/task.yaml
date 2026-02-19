@@ -7,7 +7,7 @@ prompt: |
 
   Step 1 — Read the config file:
     Read data/settings.json. It contains a JSON object with a key
-    "target_dir" whose value is a directory path relative to the workspace root.
+    "target_dir" whose value is a directory path relative to this task directory.
 
   Step 2 — Inspect the target directory:
     Use bash to list all files (not directories) directly inside that directory

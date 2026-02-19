@@ -4,7 +4,7 @@ This repository is cloned as the agent's workspace for every benchmark run.
 Each task is fully self-contained in its own directory.
 
 ```
-<repo-root>/                    ← workspace root (cwd for agent and verifier)
+<repo-root>/                    ← workspace root (runner clone location)
 ├── CODING/
 │   ├── 001/
 │   │   ├── task.yaml           # Task definition (id, prompt, verification, …)
@@ -59,7 +59,8 @@ Every task lives in `<CATEGORY>/<NNN>/` and contains exactly:
 | `results/`  | when run    | Runtime output files generated during execution  |
 
 **All paths** in `task.yaml` prompts and in `verify.py` are relative to the
-workspace root (the repo root), not to the task subdirectory.
+task directory (`<CATEGORY>/<NNN>/`), because both the agent and `verify.py`
+run with that task directory as `cwd`.
 
 ---
 
@@ -73,8 +74,8 @@ difficulty: easy # easy | medium | hard
 
 prompt: |
   Instructions for the agent.
-  Reference fixture files as <CATEGORY>/<NNN>/data/<filename>.
-  Reference output files as <CATEGORY>/<NNN>/results/<filename>.
+  Reference fixture files as data/<filename>.
+  Reference output files as results/<filename>.
 
 verification:
   timeout: 30 # seconds (default: 60)
@@ -106,16 +107,16 @@ metadata:
 
 ## Verification script conventions
 
-`verify.py` runs with the **workspace root** as `cwd`, so all paths are
-relative to the repo root.
+`verify.py` runs with the **task directory** as `cwd`, so all paths are
+relative to that task directory.
 
 ### Rules
 
 - Shebang: `#!/usr/bin/env python3`
 - Print `PASS: <description>` on success, `FAIL: <reason>` on failure
 - Exit `0` on pass, `1` on fail
-- Read agent output from `<CATEGORY>/<NNN>/results/<filename>`
-- Read fixture data from `<CATEGORY>/<NNN>/data/<filename>`
+- Read agent output from `results/<filename>`
+- Read fixture data from `data/<filename>`
 - Standard library only — no third-party dependencies
 
 ### Template
@@ -124,14 +125,14 @@ relative to the repo root.
 #!/usr/bin/env python3
 """Verification script for <CATEGORY>-<NNN>: <title>.
 
-Fixture: <CATEGORY>/<NNN>/data/<filename>   (omit if no fixture)
+Fixture: data/<filename>   (omit if no fixture)
 """
 import os
 import sys
 
 
 def verify() -> bool:
-    output_file = "<CATEGORY>/<NNN>/results/output.txt"
+    output_file = "results/output.txt"
 
     if not os.path.exists(output_file):
         print(f"FAIL: '{output_file}' does not exist")
@@ -164,8 +165,8 @@ if __name__ == "__main__":
 
 1. Choose the next available number in the category: `CODING/004/`, `TOOLS/004/`, etc.
 2. Create `task.yaml` and `verify.py` inside that directory.
-3. If the task needs input data, add it under `<CATEGORY>/<NNN>/data/`.
-4. Reference all paths from the workspace root in both files.
+3. If the task needs input data, add it under `data/`.
+4. Reference all paths from the task directory in both files.
 5. Update the fixture table in this file.
 
 ---
@@ -173,9 +174,9 @@ if __name__ == "__main__":
 ## Running a verification script directly
 
 ```bash
-# Run from the workspace root
-python3 CODING/001/verify.py
-python3 TOOLS/003/verify.py
+# Run inside each task directory
+(cd CODING/001 && python3 verify.py)
+(cd TOOLS/003 && python3 verify.py)
 ```
 
 Scripts exit `0` on PASS and `1` on FAIL.
