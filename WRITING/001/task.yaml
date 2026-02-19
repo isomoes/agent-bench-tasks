@@ -10,6 +10,9 @@ prompt: |
     - Line 2: 7 syllables
     - Line 3: 5 syllables
 
+  Important: Verification uses a simple syllable-count heuristic, so prefer
+  clear, common words with unambiguous syllable counts.
+
   Your task:
   1. Compose an original haiku on the theme of technology (computers, AI,
      the internet, software, etc.)
