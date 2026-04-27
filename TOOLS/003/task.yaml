@@ -33,7 +33,23 @@ prompt: |
         alpha.txt: 12 lines
         beta.txt: 7 lines
 verification:
-  timeout: 45
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to read data/settings.json (which contains target_dir: "data/input"),
+    list files in that directory, count non-empty lines in each, then write results/report.txt
+    in this format:
+      target_dir: data/input
+      files:
+        <filename>: <count> lines
+        ...
+    Files must be listed alphabetically. The correct answer has 3 files:
+    changelog.txt (10 lines), notes.txt (9 lines), tasks.txt (10 lines).
+
+    Score the agent 0-100:
+      100 = file exists, target_dir correct, all 3 files listed with correct counts
+      70-99 = file exists, minor issues (e.g. one count off or formatting)
+      1-69 = file exists but multiple counts wrong or files missing
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

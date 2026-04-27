@@ -24,7 +24,21 @@ prompt: |
   2. Fix the script so it produces the correct output
   3. Run the fixed script to generate results/temperatures.txt
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to fix a Python temperature converter script and produce
+    results/temperatures.txt with these exact values (one per line, rounded to 1 decimal):
+      32.0
+      212.0
+      -40.0
+      98.6
+      71.6
+
+    Score the agent 0-100:
+      100 = file exists with all 5 values exactly correct
+      50-99 = file exists but some values are wrong or formatting differs
+      1-49 = file exists but most values are incorrect
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

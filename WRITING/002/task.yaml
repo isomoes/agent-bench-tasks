@@ -21,7 +21,19 @@ prompt: |
 
   The output file should contain exactly one sentence ending with a period.
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to write a one-sentence summary (under 50 words) of a
+    paragraph about AI, covering both benefits and challenges, and save it to
+    results/summary.txt as exactly one sentence ending with a period.
+
+    Score the agent 0-100:
+      100 = file exists, single sentence, under 50 words, mentions both benefits
+            and challenges/concerns of AI, ends with a period
+      70-99 = file exists but missing one of the requirements (e.g. slightly over
+              50 words, or only mentions benefits)
+      1-69 = file exists but significantly misses requirements
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

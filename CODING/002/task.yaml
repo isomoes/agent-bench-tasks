@@ -21,7 +21,21 @@ prompt: |
 
   The counts must be in that order. Do not include any other lines.
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to count log levels in a server log file and write
+    results/log_summary.txt in this exact format (with the correct counts):
+      INFO: <count>
+      WARN: <count>
+      ERROR: <count>
+
+    The correct counts are INFO: 30, WARN: 6, ERROR: 4.
+
+    Score the agent 0-100:
+      100 = file exists with all three counts exactly correct and in the right format
+      50-99 = file exists but one count is wrong or format slightly off
+      1-49 = file exists but multiple counts are wrong
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

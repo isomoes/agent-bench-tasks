@@ -23,7 +23,18 @@ prompt: |
 
   Do not include directories, only files.
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to find all .py files recursively in the task directory,
+    then write results/py_files.txt listing each file's relative path and size in
+    bytes, sorted alphabetically, in the format:
+      <relative-path>: <size> bytes
+
+    Score the agent 0-100:
+      100 = file exists, all .py files listed with correct paths and sizes
+      50-99 = file exists but a path or size is slightly wrong
+      1-49 = file exists but most entries are wrong or missing
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

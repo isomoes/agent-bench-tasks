@@ -23,7 +23,16 @@ prompt: |
     Circuits hum through endless night  (7)
     Code becomes the dawn  (5)
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to write an original haiku about technology and save it
+    to results/haiku.txt. A haiku must have exactly 3 lines with 5-7-5 syllables.
+
+    Score the agent 0-100:
+      100 = file exists, 3 lines, correct 5-7-5 syllable pattern, technology theme
+      70-99 = file exists, technology theme, syllable count slightly off (±1)
+      1-69 = file exists but syllable pattern significantly wrong or wrong theme
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

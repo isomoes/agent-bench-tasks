@@ -28,7 +28,18 @@ prompt: |
 
   Keys must be sorted alphabetically. Use 2-space indentation.
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to aggregate data/sales.csv by product and write
+    results/sales_summary.json with total_quantity and total_revenue (rounded to 2
+    decimal places) for each product, keys sorted alphabetically, 2-space indentation.
+
+    Score the agent 0-100:
+      100 = file exists, valid JSON, all products present with correct values,
+            keys sorted alphabetically, correct indentation
+      70-99 = file exists with minor issues (e.g. rounding or indentation)
+      1-69 = file exists but values are wrong or structure is incorrect
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

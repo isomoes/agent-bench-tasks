@@ -15,7 +15,16 @@ prompt: |
 
   The output file should contain exactly one line with the page title.
 verification:
-  timeout: 60
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to fetch https://example.com and write the page's HTML
+    <title> content to results/page_title.txt. The correct title is "Example Domain".
+
+    Score the agent 0-100:
+      100 = file exists with exactly "Example Domain" (whitespace stripped)
+      50-99 = file exists but title has extra whitespace or minor formatting issues
+      1-49 = file exists but content is wrong
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true

@@ -26,7 +26,23 @@ prompt: |
     - <point 4>
     - <point 5>
 verification:
-  timeout: 30
+  timeout: 120
+  judge_prompt: |
+    The agent was asked to write a pros/cons list about remote work in
+    results/pros_cons.txt with exactly 5 pros and 5 cons, each a concise sentence
+    of 10-30 words, using these exact headers:
+      Pros:
+      - <point>
+      Cons:
+      - <point>
+
+    Score the agent 0-100:
+      100 = file exists, correct headers, exactly 5 pros and 5 cons, each point
+            10-30 words, well-written and balanced
+      70-99 = file exists but minor issues (e.g. one point slightly outside word range
+              or a point is weak)
+      1-69 = file exists but wrong number of points or headers missing
+      0 = file missing or task not attempted
 permissions:
   mode: "dontAsk"
   write: true
