@@ -11,7 +11,8 @@ prompt: |
   Your task:
   1. Fetch the page at https://example.com
   2. Extract the text content of the <title> element (strip whitespace)
-  3. Write the title text to: results/page_title.txt
+  3. Write the title text to: results/page_title.txt inside this task directory
+     (the directory containing this task.yaml), not the repository root
 
   The output file should contain exactly one line with the page title.
 verification:
